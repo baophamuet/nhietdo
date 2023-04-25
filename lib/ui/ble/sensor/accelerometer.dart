@@ -62,6 +62,7 @@ class _AcceletometerScreenState extends State<AcceletometerScreen> {
   double maxTemp = 0;
   DateTime timeTemp = DateTime.now();
   double abnormalTime = 0;
+  int i = 0;
 
   List<Color> colorsBg = ListColorByTemp[1];
   @override
@@ -96,6 +97,7 @@ class _AcceletometerScreenState extends State<AcceletometerScreen> {
   }
 
   List<Color> checkTemp(double temp) {
+    i = temp.toInt();
     if (temp <= 35.5) return ListColorByTemp[0];
     if (temp >= 38 && temp <= 39) return ListColorByTemp[2];
     if (temp > 39) return ListColorByTemp[3];
@@ -190,8 +192,8 @@ class _AcceletometerScreenState extends State<AcceletometerScreen> {
                                 ),
                               ),
                               primaryYAxis: NumericAxis(
-                                minimum: temp - 10,
-                                maximum: temp + 10,
+                                minimum: temp - (temp - temp.toInt()) - 3,
+                                maximum: temp - (temp - temp.toInt()) + 3,
                                 interval: 0.1,
                                 axisLine: AxisLine(
                                   color: Colors.grey[200],
