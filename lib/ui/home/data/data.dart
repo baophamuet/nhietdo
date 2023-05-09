@@ -51,7 +51,7 @@ final List<Course> course = [
       percent: 60,
       backImage: AppImages.box3,
       color: AppColors.kGreen),
-  Course(
+  /* Course(
       onTap: (context) {
         Navigator.pushNamed(context, Constants.myBg);
       },
@@ -70,7 +70,7 @@ final List<Course> course = [
       imageUrl: AppImages.osa,
       percent: 14,
       backImage: AppImages.box4,
-      color: AppColors.kGreen),
+      color: AppColors.kGreen),*/
 ];
 
 final List<Planing> planing = [

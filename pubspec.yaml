@@ -59,6 +59,7 @@ dependencies:
   flutter_background_service: ^2.4.5
   device_info_plus: ^8.0.0
   shared_preferences: ^2.0.15
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:

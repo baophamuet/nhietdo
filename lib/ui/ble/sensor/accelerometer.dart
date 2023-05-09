@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mod_do_an/component/card/cart_sensor.dart';
@@ -15,6 +17,8 @@ import 'package:mod_do_an/repositories/sensor_repository.dart';
 import 'package:mod_do_an/services/sensor_service.dart';
 import 'package:mod_do_an/storage/secure_storge.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 import 'dart:async';
 
 class AcceletometerScreen extends StatefulWidget {
@@ -28,6 +32,7 @@ class AcceletometerScreen extends StatefulWidget {
 class _AcceletometerScreenState extends State<AcceletometerScreen> {
   SensorService sensorService = new SensorService();
   SensorRepository sensorRepository = new SensorRepository();
+
   List<Data> listAccX = List<Data>.empty(growable: true);
 
   late ChartSeriesController _chartSeriesControllerX;
@@ -62,11 +67,19 @@ class _AcceletometerScreenState extends State<AcceletometerScreen> {
   double maxTemp = 0;
   DateTime timeTemp = DateTime.now();
   double abnormalTime = 0;
+  String audioasset = "assets/audio/soundNot.mp3";
   int i = 0;
-
+  late Uint8List audiobytes;
+  AudioPlayer player = AudioPlayer();
   List<Color> colorsBg = ListColorByTemp[1];
   @override
   void initState() {
+    Future.delayed(Duration.zero, () async {
+      ByteData bytes =
+          await rootBundle.load(audioasset); //load audio from assets
+      audiobytes =
+          bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+    });
     // TODO: implement initState
     super.initState();
     _timer = new Timer.periodic(Duration(milliseconds: 2000), (Timer timer) {
@@ -138,8 +151,8 @@ class _AcceletometerScreenState extends State<AcceletometerScreen> {
                     backgroundColor: Colors.red,
                     textColor: Colors.white,
                     fontSize: 16.0);
+                await player.playBytes(audiobytes);
               }
-
               if (under != null && newDataX.temperature < double.parse(under)) {
                 Fluttertoast.showToast(
                     msg: "Nhiệt nhỏ hơn ngưỡng",
@@ -149,6 +162,7 @@ class _AcceletometerScreenState extends State<AcceletometerScreen> {
                     backgroundColor: Colors.blue,
                     textColor: Colors.white,
                     fontSize: 16.0);
+                await player.playBytes(audiobytes);
               }
             });
             temp = newDataX.temperature;

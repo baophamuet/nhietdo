@@ -110,6 +110,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
               const SizedBox(
                 height: 15,
               ),
+              /*
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
@@ -126,7 +127,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
               const SizedBox(
                 height: 15,
               ),
-              const PlaningGrid(),
+              const PlaningGrid(),*/
             ],
           ),
         ),
